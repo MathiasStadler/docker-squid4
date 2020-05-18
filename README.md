@@ -1,3 +1,19 @@
+#
+
+## create self signed keys
+
+```bash
+# ubuntu
+sudo apt-get install -y gnutls-bin
+# private kez
+certtool --generate-privkey --outfile local-mitm.pem  --bits 2048
+# public cert
+certtool --generate-self-signed --load-privkey local-mitm.pem  --outfile local-mitm.crt  --template cert.cfg 
+
+
+```
+
+###### orig README.md from https://github.com/wrouesnel
 # Squid4 with SSL proxying
 
 This dockerfile builds a Squid 4 instance and includes all the necessary
