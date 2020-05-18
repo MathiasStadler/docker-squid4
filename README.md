@@ -10,8 +10,26 @@ certtool --generate-privkey --outfile local-mitm.pem  --bits 2048
 # public cert
 certtool --generate-self-signed --load-privkey local-mitm.pem  --outfile local-mitm.crt  --template cert.cfg 
 
-
 ```
+
+ ## start docker
+
+```bash
+isudo mkdir -p /srv/squid/cache
+docker run -it -p 3128:127.0.0.1:3128 --rm \
+    -v /srv/squid/cache:/var/cache/squid4 \
+    -v ./:/etc/ssl/certs:ro \ 
+    -v ./:/local-mitm.pem:ro \
+    -v ./local_mitm.pem:/local-mitm.crt:ro \
+    -e MITM_CERT=/local-mitm.crt \
+    -e MITM_KEY=/local-mitm.pem \
+    -e MITM_PROXY=yes \
+    squid
+```
+
+
+
+
 
 ###### orig README.md from https://github.com/wrouesnel
 # Squid4 with SSL proxying
