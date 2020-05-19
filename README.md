@@ -12,19 +12,32 @@ certtool --generate-self-signed --load-privkey local-mitm.pem  --outfile local-m
 
 ```
 
+
+## docker build
+
+```bash
+docker build -t my/docker-squid:4.11
+```
+
  ## start docker
 
 ```bash
-isudo mkdir -p /srv/squid/cache
-docker run -it -p 3128:127.0.0.1:3128 --rm \
-    -v /srv/squid/cache:/var/cache/squid4 \
-    -v ./:/etc/ssl/certs:ro \ 
-    -v ./:/local-mitm.pem:ro \
-    -v ./local_mitm.pem:/local-mitm.crt:ro \
-    -e MITM_CERT=/local-mitm.crt \
-    -e MITM_KEY=/local-mitm.pem \
-    -e MITM_PROXY=yes \
-    squid
+# create cash folder
+sudo mkdir -p /srv/squid/cache
+
+# start docker
+
+docker run -it --rm \
+-p 3128:3128 \
+-v /srv/squid/cache:/var/cache/squid4 \
+-v ${PWD}/certs:/etc/ssl/certs:ro \
+-v ${PWD}/local-mitm.pem:/local-mitm.pem:ro \
+-v ${PWD}/local-mitm.crt:/local-mitm.crt:ro \
+-v ${PWD}/squid.conf:/etc/squid/squid.conf:ro \
+-e MITM_CERT=/local-mitm.crt \
+-e MITM_KEY=/local-mitm.pem \
+-e MITM_PROXY=yes \
+my/docker-squid:4.11
 ```
 
 

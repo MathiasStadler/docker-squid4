@@ -1,5 +1,9 @@
 # TEMPLATED CONFIGURATION FILE. UPDATED ON EACH RUN.
 
+
+
+#debug_options ALL,7 
+debug_options ALL,1 33,9 83,9 28,9 81,9 11,2 26,9
 # Default all logs to stdout and stderr
 logfile_rotate 0
 access_log stdio:/dev/stdout combined
@@ -26,7 +30,8 @@ http_port {{HTTP_PORT}} {% if MITM_PROXY|default:"" == "yes" %} ssl-bump \
     generate-host-certificates=on \
     dynamic_cert_mem_cache_size=4MB \
     cert=/etc/squid4/ssl_cert/mitm.crt \
-    key=/etc/squid4/ssl_cert/mitm.pem
+    key=/etc/squid4/ssl_cert/mitm.pem \
+    capath=/etc/ssl/certs
 {% endif %}
 
 {% if MITM_PROXY|default:"" == "yes" %}
