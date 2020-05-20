@@ -1,5 +1,10 @@
 #!/bin/bash
 
+
+# for pinger
+chown root /usr/libexec/pinger
+chmod u+s /usr/libexec/pinger
+
 # Setup the ssl_cert directory
 if [ ! -d /etc/squid4/ssl_cert ]; then
     mkdir /etc/squid4/ssl_cert
@@ -123,7 +128,8 @@ if [ "$PROXYCHAIN" = "yes" ]; then
     PID=$!
 else
     # Start squid normally
-    squid -N 2>&1 &
+   squid -k parse || exit 1 
+	squid -N 2>&1 &
     PID=$!
 fi
 

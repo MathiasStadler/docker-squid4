@@ -30,9 +30,10 @@ sudo mkdir -p /srv/squid/cache
 docker run -it --rm \
 -p 3128:3128 \
 -v /srv/squid/cache:/var/cache/squid4 \
--v ${PWD}/certs:/etc/ssl/certs:ro \
+-v /etc/ca-certificates:/etc/ca-certificates:ro \
+-v /etc/ssl/certs:/etc/ssl/certs:ro \
 -v ${PWD}/local-mitm.pem:/local-mitm.pem:ro \
--v ${PWD}/local-mitm.crt:/local-mitm.crt:ro \
+-v ${PWD}/squid-ca-cert-key.pem:/local-mitm.crt:ro \
 -v ${PWD}/squid.conf:/etc/squid/squid.conf:ro \
 -e MITM_CERT=/local-mitm.crt \
 -e MITM_KEY=/local-mitm.pem \
@@ -40,7 +41,7 @@ docker run -it --rm \
 my/docker-squid:4.11
 ```
 
-
+openssl x509 -in local-mitm.crt -text -noout
 
 
 
