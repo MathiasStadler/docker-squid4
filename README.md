@@ -38,6 +38,7 @@ docker run -it --rm -d \
 -e MITM_CERT=/local-mitm.crt \
 -e MITM_KEY=/local-mitm.pem \
 -e MITM_PROXY=yes \
+-e SQUID_DEBUG=yes
 my/docker-squid:4.11
 ```
 

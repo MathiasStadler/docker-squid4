@@ -2,8 +2,11 @@
 
 
 
-#debug_options ALL,7 
+#debug_options  
+{% if SQUID_DEBUG|default:"" == "yes" %}
 debug_options ALL,1 5,9 14,9 17,9 23,9 33,9 44,9 50,9 83,9 28,9 78,9 81,9 85,9 11,9 26,9
+{% endif %}
+
 # Default all logs to stdout and stderr
 logfile_rotate 0
 
