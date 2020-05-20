@@ -3,13 +3,14 @@
 ## create self signed keys
 
 ```bash
-# ubuntu
-sudo apt-get install -y gnutls-bin
-# private kez
-certtool --generate-privkey --outfile local-mitm.pem  --bits 2048
-# public cert
-certtool --generate-self-signed --load-privkey local-mitm.pem  --outfile local-mitm.crt  --template cert.cfg 
+openssl req -new -newkey rsa:2048 -sha256 -days 365 -nodes -x509 -extensions v3_ca -keyout squid-ca-key.pem -out squid-ca-cert.pemu
 
+```
+
+## caoncat together
+
+```
+cat squid-ca-cert.pem squid-ca-key.pem >> squid-ca-cert-key.pem
 ```
 
 
@@ -27,14 +28,13 @@ sudo mkdir -p /srv/squid/cache
 
 # start docker
 
-docker run -it --rm \
+docker run -it --rm -d \
 -p 3128:3128 \
 -v /srv/squid/cache:/var/cache/squid4 \
 -v /etc/ca-certificates:/etc/ca-certificates:ro \
 -v /etc/ssl/certs:/etc/ssl/certs:ro \
 -v ${PWD}/local-mitm.pem:/local-mitm.pem:ro \
 -v ${PWD}/squid-ca-cert-key.pem:/local-mitm.crt:ro \
--v ${PWD}/squid.conf:/etc/squid/squid.conf:ro \
 -e MITM_CERT=/local-mitm.crt \
 -e MITM_KEY=/local-mitm.pem \
 -e MITM_PROXY=yes \
