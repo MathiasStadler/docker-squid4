@@ -42,7 +42,7 @@ code-server --list-extensions
 ## create self signed keys
 
 ```bash
-openssl req -new -newkey rsa:2048 -sha256 -days 365 -nodes -x509 -extensions v3_ca -keyout squid-ca-key.pem -out squid-ca-cert.pemu
+openssl req -new -newkey rsa:2048 -sha256 -days 365 -nodes -x509 -extensions v3_ca -keyout squid-ca-key.pem -out squid-ca-cert.pem
 
 ```
 
@@ -52,11 +52,21 @@ openssl req -new -newkey rsa:2048 -sha256 -days 365 -nodes -x509 -extensions v3_
 cat squid-ca-cert.pem squid-ca-key.pem >> squid-ca-cert-key.pem
 ```
 
+## install root ca
+
+```bash
+#debian/ubuntu
+sudo apt install ca-certificates
+```
+
 
 ## docker build
 
 ```bash
-docker build -t my/docker-squid:4.11
+# normal
+docker build -t my/docker-squid4:4.11  docker-squid
+# DOCKER_BUILDKIT=1
+DOCKER_BUILDKIT=1 docker build -t my/docker-squid4:4.11  docker-squid
 ```
 
  ## start docker
@@ -64,10 +74,11 @@ docker build -t my/docker-squid:4.11
 ```bash
 # create cash folder
 sudo mkdir -p /srv/squid/cache
+sudo chown root: /srv/squid/cache
 
 # start docker
 
-docker run -it --rm -d \
+docker run -it   \
 -p 3128:3128 \
 -v /srv/squid/cache:/var/cache/squid4 \
 -v /etc/ca-certificates:/etc/ca-certificates:ro \
@@ -77,8 +88,8 @@ docker run -it --rm -d \
 -e MITM_CERT=/local-mitm.crt \
 -e MITM_KEY=/local-mitm.pem \
 -e MITM_PROXY=yes \
--e SQUID_DEBUG=yes
-my/docker-squid:4.11
+-e SQUID_DEBUG=yes \
+my/docker-squid4:4.11
 ```
 
 openssl x509 -in local-mitm.crt -text -noout
