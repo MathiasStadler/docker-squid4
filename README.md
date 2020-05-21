@@ -78,7 +78,7 @@ sudo chown root: /srv/squid/cache
 
 # start docker
 
-docker run -it   \
+docker run -it -d --rm  \
 -p 3128:3128 \
 -v /srv/squid/cache:/var/cache/squid4 \
 -v /etc/ca-certificates:/etc/ca-certificates:ro \
