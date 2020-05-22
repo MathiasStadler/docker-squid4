@@ -70,9 +70,10 @@ if [ "${CONFIG_DISABLE:-no}" != "yes" ]; then
         echo "cache_peer $line" >> /etc/squid4/squid.conf
     done
     else
-    echo "variable cahche_peer NOT_SET"
+    echo "ENV variable CACHE_PEER NOT_SET"
     fi
 
+if [ "${EXTRA_CONFIG:-NOT_SET}" != "NOT_SET" ]; then
     # Parse the extra config lines and append them to the configuration
     echo '# EXTRA CONFIG FROM DOCKER' >> /etc/squid4/squid.conf
     env | grep 'EXTRA_CONFIG' | sort | while read extraline; do
@@ -80,6 +81,10 @@ if [ "${CONFIG_DISABLE:-no}" != "yes" ]; then
         line=$(echo $extraline | cut -d'=' -f2-)
         echo "$line" >> /etc/squid4/squid.conf
     done
+else
+    echo "ENV variable EXTRA_CONFIG NOT_SET"
+    fi
+
 else
     echo "/etc/squid4/squid.conf: CONFIGURATION TEMPLATING IS DISABLED."
 fi
