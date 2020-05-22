@@ -89,7 +89,7 @@ else
     echo "/etc/squid4/squid.conf: CONFIGURATION TEMPLATING IS DISABLED."
 fi
 
-if [ "$DNS_OVER_HTTPS" = "yes" ]; then
+if [ "${DNS_OVER_HTTPS:-no}" = "yes" ]; then
     echo "Starting DNS-over-HTTPS proxy..."
     # TODO: find a way to tie this to the proxychains config
     dns-over-https-proxy -default "$DNS_OVER_HTTPS_SERVER" \
