@@ -5,6 +5,9 @@ set -euxo pipefail
 chown root /usr/libexec/pinger
 chmod u+s /usr/libexec/pinger
 
+# TODO set option delete old one if availble 
+
+
 # Setup the ssl_cert directory
 if [ ! -d /etc/squid4/ssl_cert ]; then
     mkdir /etc/squid4/ssl_cert
@@ -21,11 +24,11 @@ chown -R proxy: /var/cache/squid4
 chmod -R 750 /var/cache/squid4
 
 if [ ! -z $MITM_PROXY ]; then
-    if [ ! -z $MITM_KEY ]; then
-        echo "Copying $MITM_KEY as MITM key..."
-        cp $MITM_KEY /etc/squid4/ssl_cert/mitm.pem
-        chown root:proxy /etc/squid4/ssl_cert/mitm.pem
-    fi
+   # if [ ! -z $MITM_KEY ]; then
+   #     echo "Copying $MITM_KEY as MITM key..."
+   #     cp $MITM_KEY /etc/squid4/ssl_cert/mitm.pem
+   #     chown root:proxy /etc/squid4/ssl_cert/mitm.pem
+   # fi
 
     if [ ! -z $MITM_CERT ]; then
         echo "Copying $MITM_CERT as MITM CA..."
@@ -33,14 +36,18 @@ if [ ! -z $MITM_PROXY ]; then
         chown root:proxy /etc/squid4/ssl_cert/mitm.crt
     fi
 
-    if [ -z $MITM_CERT ] || [ -z $MITM_KEY ]; then
-        echo "Must specify $MITM_CERT AND $MITM_KEY." 1>&2
+    # if [ -z $MITM_CERT ] || [ -z $MITM_KEY ]; then
+    if [ -z $MITM_CERT ] ; then
+        # echo "Must specify $MITM_CERT AND $MITM_KEY." 1>&2
+  echo "Must specify $MITM_CERT." 1>&2
         exit 1
     fi
 fi
 
 chown proxy: /dev/stdout
 chown proxy: /dev/stderr
+
+# TODO add option delete old on if avaible
 
 # Initialize the certificates database
 /usr/libexec/security_file_certgen -c -s /var/spool/squid4/ssl_db -M 4MB

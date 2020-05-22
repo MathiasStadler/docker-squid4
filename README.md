@@ -85,7 +85,6 @@ docker run -it  \
 -v /etc/ssl/certs:/etc/ssl/certs:ro \
 -v ${PWD}/squid-ca-cert-key.pem:/local-mitm.crt:ro \
 -e MITM_CERT=/local-mitm.crt \
--e MITM_KEY=/local-mitm.pem \
 -e MITM_PROXY=yes \
 -e SQUID_DEBUG=yes \
 my/docker-squid4:4.11
