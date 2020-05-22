@@ -62,12 +62,16 @@ if [ "${CONFIG_DISABLE:-no}" != "yes" ]; then
 
     # Parse the cache peer lines from the environment and add them to the
     # configuration
+    if [ "${CACHE_PEER:-NOT_SET}" != "NOT_SET" ]; then 
     echo '# CACHE PEERS FROM DOCKER' >> /etc/squid4/squid.conf
     env | grep 'CACHE_PEER' | sort | while read cacheline; do
         echo "# $cacheline " >> /etc/squid4/squid.conf
         line=$(echo $cacheline | cut -d'=' -f2-)
         echo "cache_peer $line" >> /etc/squid4/squid.conf
     done
+    else
+    echo "variable cahche_peer NOT_SET"
+    fi
 
     # Parse the extra config lines and append them to the configuration
     echo '# EXTRA CONFIG FROM DOCKER' >> /etc/squid4/squid.conf
