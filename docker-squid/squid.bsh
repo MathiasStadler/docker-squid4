@@ -134,7 +134,7 @@ fi
 # Build the configuration directories if needed
 squid -z -N
 
-if [ "$PROXYCHAIN" = "yes" ]; then
+if [ "${PROXYCHAIN:-no}" = "yes" ]; then
     if [ ! -e /etc/proxychains.conf ]; then
         echo "ERROR: /etc/proxychains.conf does not exist. Squid with proxychains will not work."
         exit 1
