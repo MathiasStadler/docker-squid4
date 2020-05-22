@@ -111,6 +111,15 @@ sudo update-ca-trust
 ```
 
 
+## install of android devices
+https://android.stackexchange.com/questions/61540/self-signed-certificate-install-claims-success-but-android-acts-as-if-cert-isn
+
+https://www.pluralsight.com/guides/download-large-files-from-remote-servers-using-nginx-docker
+
+
+
+
+
 
 ###### orig README.md from https://github.com/wrouesnel
 # Squid4 with SSL proxying

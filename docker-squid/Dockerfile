@@ -107,9 +107,11 @@ RUN wget -O /tmp/doh.tgz \
     tar -xvvf /tmp/doh.tgz --strip-components=1 -C /usr/local/bin/ && \
     chmod +x /usr/local/bin/dns-over-https-proxy
 
-# COPY squid.conf.p2 /squid.conf.p2
+# copy into container
+COPY squid.conf.p2 /squid.conf.p2
+
 # build for multi platform‚
-COPY --from=build_p2cli /p2 /p2
+COPY --from=build_p2cli /p2 /usr/local/bin/p2
 
 COPY squid.bsh /squid.bsh
 
