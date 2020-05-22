@@ -39,7 +39,7 @@ if [ ! -z $MITM_PROXY ]; then
     # if [ -z $MITM_CERT ] || [ -z $MITM_KEY ]; then
     if [ -z $MITM_CERT ] ; then
         # echo "Must specify $MITM_CERT AND $MITM_KEY." 1>&2
-  echo "Must specify $MITM_CERT." 1>&2
+        echo "Must specify $MITM_CERT." 1>&2
         exit 1
     fi
 fi
@@ -57,7 +57,7 @@ chown -R proxy: /var/spool/squid4/ssl_db
 #ssl_db
 
 # Set the configuration
-if [ "$CONFIG_DISABLE" != "yes" ]; then
+if [ "${CONFIG_DISABLE:-no}" != "yes" ]; then
     p2 -t /squid.conf.p2 > /etc/squid4/squid.conf
 
     # Parse the cache peer lines from the environment and add them to the
