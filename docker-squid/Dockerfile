@@ -1,5 +1,15 @@
 ARG DOCKER_PREFIX=
 
+FROM golang AS build_p2cli
+RUN go get -u -v github.com/wrouesnel/p2cli
+WORKDIR $GOPATH/src/github.com/wrouesnel/p2cli
+RUN CGO_ENABLED=0 GOOS=linux go build -a \
+    -ldflags "-extldflags '-static' -X main.Version=$(shell git describe --long --dirty)" \
+    -o /p2 .
+
+
+
+
 FROM ubuntu:18.04 
 
 ARG TRUST_CERT=
@@ -97,7 +107,10 @@ RUN wget -O /tmp/doh.tgz \
     tar -xvvf /tmp/doh.tgz --strip-components=1 -C /usr/local/bin/ && \
     chmod +x /usr/local/bin/dns-over-https-proxy
 
-COPY squid.conf.p2 /squid.conf.p2
+# COPY squid.conf.p2 /squid.conf.p2
+# build for multi platform‚
+COPY --from=build_p2cli /p2 /p2
+
 COPY squid.bsh /squid.bsh
 
 # Configuration environment
