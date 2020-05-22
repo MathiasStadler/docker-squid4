@@ -1,6 +1,4 @@
 #!/bin/bash
-
-# exit on each error :-)
 set -euxo pipefail
 
 # for pinger
@@ -130,8 +128,7 @@ if [ "$PROXYCHAIN" = "yes" ]; then
     PID=$!
 else
     # Start squid normally
-   squid -k parse || exit 1 
-	squid -N 2>&1 &
+    squid -N 2>&1 &
     PID=$!
 fi
 

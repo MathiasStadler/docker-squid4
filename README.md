@@ -78,12 +78,11 @@ sudo chown root: /srv/squid/cache
 
 # start docker
 
-docker run -it -d --rm  \
+docker run -it  \
 -p 3128:3128 \
 -v /srv/squid/cache:/var/cache/squid4 \
 -v /etc/ca-certificates:/etc/ca-certificates:ro \
 -v /etc/ssl/certs:/etc/ssl/certs:ro \
--v ${PWD}/local-mitm.pem:/local-mitm.pem:ro \
 -v ${PWD}/squid-ca-cert-key.pem:/local-mitm.crt:ro \
 -e MITM_CERT=/local-mitm.crt \
 -e MITM_KEY=/local-mitm.pem \
