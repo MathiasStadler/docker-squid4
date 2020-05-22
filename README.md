@@ -48,8 +48,9 @@ openssl req -new -newkey rsa:2048 -sha256 -days 365 -nodes -x509 -extensions v3_
 
 ## caoncat together
 
+- The file name must end with .crt
 ```
-cat squid-ca-cert.pem squid-ca-key.pem >> squid-ca-cert-key.pem
+cat squid-ca-cert.pem squid-ca-key.pem >> squid-ca-cert-key-pem.crt
 ```
 
 ## install root ca
@@ -90,7 +91,24 @@ docker run -it  \
 my/docker-squid4:4.11
 ```
 
-openssl x509 -in local-mitm.crt -text -noout
+
+## curl
+
+-- show ca path
+
+```bash
+curl-config --ca
+```
+
+## arch import ca
+
+- The file name must end with .crt
+
+```bash
+# from here https://wiki.archlinux.org/index.php/User:Grawity/Adding_a_trusted_CA_certificate
+sudo trust anchor --store squid-ca-cert-key-pem.crt
+sudo update-ca-trust
+```
 
 
 
