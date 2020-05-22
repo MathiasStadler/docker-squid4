@@ -108,7 +108,7 @@ if [ ! -e /etc/squid4/squid.conf ]; then
 fi
 
 # If proxychains is requested and config templating is active
-if [ "$PROXYCHAIN" = "yes" ] && [ "$CONFIG_DISABLE" != "yes" ]; then
+if [ "${PROXYCHAIN:-no}" = "yes" ] && [ "${CONFIG_DISABLE:-no}" != "yes" ]; then
     echo "# PROXYCHAIN CONFIG FROM DOCKER" > /etc/proxychains.conf
     # Enable remote DNS proxy
     if [ ! -z "$PROXYCHAIN_DNS" ]; then
