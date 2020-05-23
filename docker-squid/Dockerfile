@@ -1,8 +1,8 @@
 ARG DOCKER_PREFIX=
 
 FROM golang AS build_p2cli
-RUN go get -u -v github.com/wrouesnel/p2cli
-WORKDIR $GOPATH/src/github.com/wrouesnel/p2cli
+RUN go get -u -v github.com/mathiasstadler/p2cli
+WORKDIR $GOPATH/src/github.com/mathiasstadler/p2cli
 RUN CGO_ENABLED=0 GOOS=linux go build -a \
     -ldflags "-extldflags '-static' -X main.Version=$(shell git describe --long --dirty)" \
     -o /p2 .
@@ -112,6 +112,7 @@ COPY squid.conf.p2 /squid.conf.p2
 
 # build for multi platform‚
 COPY --from=build_p2cli /p2 /usr/local/bin/p2
+RUN chmod +x /usr/local/bin/p2
 
 COPY squid.bsh /squid.bsh
 

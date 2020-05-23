@@ -58,7 +58,7 @@ chown -R proxy: /var/spool/squid4/ssl_db
 
 # Set the configuration
 if [ "${CONFIG_DISABLE:-no}" != "yes" ]; then
-    /usr/local/bin/p2 -t /squid.conf.p2 > /etc/squid4/squid.conf
+    p2 -t /squid.conf.p2 > /etc/squid4/squid.conf
 
     # Parse the cache peer lines from the environment and add them to the
     # configuration
