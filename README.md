@@ -68,6 +68,8 @@ sudo apt install ca-certificates
 docker build -t my/docker-squid4:4.11  docker-squid
 # DOCKER_BUILDKIT=1
 DOCKER_BUILDKIT=1 docker build -t my/docker-squid4:4.11  docker-squid
+#
+BUILDKIT_PROGRESS=plain DOCKER_BUILDKIT=1 docker build -t my/docker-squid4:4.11  docker-squid
 ```
 
  ## start docker
@@ -84,7 +86,7 @@ docker run -it  \
 -v /srv/squid/cache:/var/cache/squid4 \
 -v /etc/ca-certificates:/etc/ca-certificates:ro \
 -v /etc/ssl/certs:/etc/ssl/certs:ro \
--v ${PWD}/squid-ca-cert-key.pem:/local-mitm.crt:ro \
+-v ${PWD}/squid-ca-cert-key-pem.crt:/local-mitm.crt:ro \
 -e MITM_CERT=/local-mitm.crt \
 -e MITM_PROXY=yes \
 -e SQUID_DEBUG=yes \

@@ -85,10 +85,11 @@ RUN cd /src/squid && \
     make -j$CONCURRENCY && \
     make install
 
+# TODO old
 # Download p2cli dependency
-RUN wget -O /usr/local/bin/p2 \
-    https://github.com/wrouesnel/p2cli/releases/download/r1/p2 && \
-    chmod +x /usr/local/bin/p2
+# RUN wget -O /usr/local/bin/p2 \
+#    https://github.com/wrouesnel/p2cli/releases/download/r1/p2 && \
+#    chmod +x /usr/local/bin/p2
 
 # Clone and build proxychains-ng for SSL upstream proxying
 ARG PROXYCHAINS_COMMITTISH=7a233fb1f05bcbf3d7f5c91658932261de1e13cb
