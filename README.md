@@ -119,7 +119,8 @@ https://android.stackexchange.com/questions/61540/self-signed-certificate-instal
 https://www.pluralsight.com/guides/download-large-files-from-remote-servers-using-nginx-docker
 
 
-
+export GO111MODULE=on 
+https://stackoverflow.com/questions/27249420/how-do-i-install-requirements-in-go-cannot-find-package
 
 
 
