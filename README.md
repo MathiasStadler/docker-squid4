@@ -123,6 +123,9 @@ export GO111MODULE=on
 https://stackoverflow.com/questions/27249420/how-do-i-install-requirements-in-go-cannot-find-package
 
 
+https://www.systutorials.com/how-to-install-go-1-13-x-on-ubuntu-18-04/
+
+
 
 ###### orig README.md from https://github.com/wrouesnel
 # Squid4 with SSL proxying
