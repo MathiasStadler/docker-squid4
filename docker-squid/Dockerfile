@@ -1,12 +1,15 @@
 ARG DOCKER_PREFIX=
 
 FROM golang AS build_p2cli
-RUN export GO111MODULE=on
-RUN go get -u -v github.com/mathiasstadler/p2cli
-WORKDIR $GOPATH/src/github.com/mathiasstadler/p2cli
-RUN CGO_ENABLED=0 GOOS=linux go build -a --tags r2\
-    -ldflags "-extldflags '-static' -X main.Version=$(shell git describe --long --dirty)" \
-    -o /p2 .
+# RUN export GO111MODULE=on
+# RUN go get -u -v github.com/mathiasstadler/p2cli
+# WORKDIR $GOPATH/src/github.com/mathiasstadler/p2cli
+# RUN CGO_ENABLED=0 GOOS=linux go build -a --tags r2\
+#    -ldflags "-extldflags '-static' -X main.Version=$(shell git describe --long --dirty)" \
+#    -o /p2 .
+
+RUN cd / && git clone http://github.com/mathiasstadler/p2cli  --tags r2 --single-branch && cd r2 && git branch && make -d && ls -l && pwd
+
 
 FROM ubuntu:18.04 
 
@@ -109,7 +112,7 @@ RUN wget -O /tmp/doh.tgz \
 COPY squid.conf.p2 /squid.conf.p2
 
 # build for multi platform‚
-COPY --from=build_p2cli /p2 /usr/local/bin/p2
+COPY --from=build_p2cli /r2/p2 /usr/local/bin/p2
 RUN chmod +x /usr/local/bin/p2
 
 COPY squid.bsh /squid.bsh
