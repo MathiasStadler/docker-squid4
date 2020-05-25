@@ -1,14 +1,12 @@
 ARG DOCKER_PREFIX=
 
 FROM golang AS build_p2cli
-RUN go get -u -v github.com/mathiasstadler/p2cli
+RUN export GO111MODULE=on
+RUN go get -u -v github.com/mathiasstadler/p2cli@r2
 WORKDIR $GOPATH/src/github.com/mathiasstadler/p2cli
 RUN CGO_ENABLED=0 GOOS=linux go build -a \
     -ldflags "-extldflags '-static' -X main.Version=$(shell git describe --long --dirty)" \
     -o /p2 .
-
-
-
 
 FROM ubuntu:18.04 
 
