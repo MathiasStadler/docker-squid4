@@ -126,6 +126,11 @@ https://stackoverflow.com/questions/27249420/how-do-i-install-requirements-in-go
 https://www.systutorials.com/how-to-install-go-1-13-x-on-ubuntu-18-04/
 
 
+https://levelup.gitconnected.com/complete-guide-to-create-docker-container-for-your-golang-application-80f3fb59a15e
+
+
+RUN cat /run.sh | tr -d '\r' > /run.sh
+
 
 ###### orig README.md from https://github.com/wrouesnel
 # Squid4 with SSL proxying
