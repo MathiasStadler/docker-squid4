@@ -113,7 +113,8 @@ RUN wget -O /tmp/doh.tgz \
 COPY squid.conf.p2 /squid.conf.p2
 
 # build for multi platform‚
-COPY --from=build_p2cli /r2/p2 /usr/local/bin/p2
+# COPY --from=build_p2cli /r2/p2 /usr/local/bin/p2
+COPY p2_arm64 /usrlocal/bin/p2
 RUN chmod +x /usr/local/bin/p2
 
 COPY squid.bsh /squid.bsh
