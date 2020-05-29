@@ -112,6 +112,13 @@ sudo trust anchor --store squid-ca-cert-key-pem.crt
 sudo update-ca-trust
 ```
 
+## set env proxy http(s)
+
+```bash
+export http_proxy="http://192.168.178.210:3128"
+export https_proxy=$http_proxy
+```
+
 
 ## install of android devices
 https://android.stackexchange.com/questions/61540/self-signed-certificate-install-claims-success-but-android-acts-as-if-cert-isn
