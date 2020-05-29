@@ -119,6 +119,11 @@ export http_proxy="http://192.168.178.210:3128"
 export https_proxy=$http_proxy
 ```
 
+## download cert
+
+```bash
+curl http://192.168.178.29:8080/downloads/squid-ca-cert-key-pem.crt -O
+```
 
 ## install of android devices
 https://android.stackexchange.com/questions/61540/self-signed-certificate-install-claims-success-but-android-acts-as-if-cert-isn
